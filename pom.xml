@@ -60,7 +60,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>ts-jpa</artifactId>
+            <artifactId>ts-jna</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>
