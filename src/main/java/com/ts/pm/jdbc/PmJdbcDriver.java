@@ -9,6 +9,7 @@ package com.ts.pm.jdbc;
 import com.sun.jna.platform.win32.WinNT;
 import com.sun.jna.platform.win32.WinReg;
 import com.ts.utils.win.RegistryUtils;
+import java.net.Inet4Address;
 import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.Driver;
@@ -51,7 +52,14 @@ public class PmJdbcDriver implements Driver {
         // convert the server entry to a ip address
         NbtAddress localHost = null;
         try {
-            localHost = NbtAddress.getLocalHost();
+            String localHostIpAddress = Inet4Address.getLocalHost().getHostAddress();
+            NbtAddress[] nbtAddresses = NbtAddress.getAllByAddress(localHostIpAddress);
+            for(NbtAddress address : nbtAddresses) {
+                if(0 == address.getNameType() && !address.isGroupAddress()) {
+                    localHost = address;
+                    break;
+                }
+            }
         }
         catch (UnknownHostException ex) {
             throw new SQLException(ex);
@@ -78,7 +86,7 @@ public class PmJdbcDriver implements Driver {
     @Override
     public boolean acceptsURL(String url) throws SQLException
     {
-        return url.startsWith("jdbc:postalmate:");
+        return url.startsWith("jdbc:postalmate");
     }
 
     @Override
