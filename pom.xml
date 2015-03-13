@@ -14,7 +14,7 @@
                 <extensions>true</extensions>
                 <configuration>
                     <publicPackages>
-                        <publicPackage></publicPackage>
+                        <publicPackage>com.ts.pm.jdbc.*</publicPackage>
                     </publicPackages>
                 </configuration>
             </plugin>
